@@ -1,0 +1,213 @@
+<div class="poo-offtop">
+    <div class="poo-offtop__notice">
+        <svg class="poo-offtop__warning-icon" width="12" height="12" viewBox="0 0 576 512" fill="currentColor" aria-hidden="true">
+            <path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>
+        </svg>
+        <span class="poo-offtop__warning-text">Под спойлером может быть любой контент — не по теме обсуждения.</span>
+    </div>
+
+    <input type="checkbox" id="poo-offtop-toggle" class="poo-offtop__toggle">
+    <label for="poo-offtop-toggle" class="poo-offtop__summary">
+        <img class="poo-offtop__icon" src="https://poo.by/styles/fa/regular/mug.svg" width="14" height="14" alt="" aria-hidden="true">
+        <span class="poo-offtop__title">Оффтоп</span>
+        <span class="poo-offtop__sep"></span>
+        <span class="poo-offtop__value">
+            Контент не по теме
+            <span class="poo-offtop__status">(<img class="poo-offtop__check" src="https://poo.by/styles/fa/regular/check.svg" width="10" height="10" alt="" aria-hidden="true">Прочитано)</span>
+        </span>
+        <span class="poo-offtop__hint">
+            <span class="poo-offtop__hint-open">Открыть</span>
+            <span class="poo-offtop__hint-close">Закрыть</span>
+        </span>
+        <svg class="poo-offtop__chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </label>
+
+    <div class="poo-offtop__content">
+        <div class="poo-offtop__inner">{text}</div>
+    </div>
+
+    <style>
+    .poo-offtop{
+        --poo-accent:#7681FF;
+        --poo-pad:12px;
+        position:relative;
+        margin:8px 0;
+        background:rgba(255,255,255,.03);
+        border-radius:8px;
+        font-size:13px;
+        line-height:1.35;
+        color:#c9d1d9;
+        overflow:hidden;
+    }
+
+    .poo-offtop__content{
+        position:relative;
+        max-height:0;
+        overflow:hidden;
+        transition:max-height .35s ease-out;
+    }
+    .poo-offtop__content::before{
+        content:"";
+        position:absolute;
+        left:0; top:0; bottom:0;
+        width:2px;
+        background:linear-gradient(to bottom, var(--poo-accent), var(--poo-accent));
+        background-repeat:no-repeat;
+        background-position:top left;
+        background-size:100% 0%;
+        transition:background-size 1.2s ease-out;
+        pointer-events:none;
+        z-index:2;
+    }
+    .poo-offtop__toggle:checked ~ .poo-offtop__content{
+        max-height:5000px;
+    }
+    .poo-offtop__toggle:checked ~ .poo-offtop__content::before{
+        background-size:100% 100%;
+    }
+
+    .poo-offtop__notice{
+        display:flex;
+        align-items:center;
+        gap:6px;
+        padding:7px var(--poo-pad);
+        border-bottom:1px solid rgba(248,81,73,.15);
+        max-height:60px;
+        overflow:hidden;
+        transition:max-height .3s ease-out, opacity .3s ease-out, padding .3s ease-out, border-color .3s ease-out;
+    }
+    .poo-offtop:has(.poo-offtop__toggle:checked) .poo-offtop__notice{
+        max-height:0;
+        opacity:0;
+        padding-top:0;
+        padding-bottom:0;
+        border-color:transparent;
+    }
+    .poo-offtop__warning-icon{flex:0 0 12px;color:#f85149}
+    .poo-offtop__warning-text{font-size:10px;line-height:1.2;color:#f85149}
+
+    .poo-offtop__toggle{
+        position:absolute;
+        width:1px;height:1px;
+        opacity:0;
+        pointer-events:none;
+    }
+
+    .poo-offtop__summary{
+        display:flex;
+        align-items:center;
+        gap:6px;
+        padding:7px var(--poo-pad);
+        cursor:pointer;
+        user-select:none;
+        -webkit-tap-highlight-color:transparent;
+        touch-action:manipulation;
+    }
+    .poo-offtop__summary:hover{background:rgba(255,255,255,.03)}
+    .poo-offtop__toggle:focus-visible + .poo-offtop__summary{
+        outline:2px solid var(--poo-accent);
+        outline-offset:-2px;
+    }
+
+    .poo-offtop__icon{
+        flex:0 0 14px;
+        width:14px;height:14px;
+        display:block;
+        transform:rotate(0deg);
+        transform-origin:70% 30%;
+        transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+        filter:invert(48%) sepia(79%) saturate(2476%) hue-rotate(238deg) brightness(95%) contrast(96%);
+    }
+    .poo-offtop__toggle:checked + .poo-offtop__summary .poo-offtop__icon{
+        transform:rotate(-45deg);
+    }
+
+    .poo-offtop__title{font-size:10px;text-transform:uppercase;letter-spacing:.6px;flex:0 0 auto;color:var(--poo-accent)}
+    .poo-offtop__sep{width:1px;height:12px;background:rgba(255,255,255,.1);flex:0 0 auto}
+
+    .poo-offtop__value{
+        font-weight:500;
+        font-size:12px;
+        flex:1 1 auto;
+        min-width:0;
+        color:#c9d1d9;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+    }
+
+    .poo-offtop__status{
+        display:none;
+        align-items:center;
+        gap:2px;
+        font-size:10px;
+        font-weight:400;
+        letter-spacing:.2px;
+        color:#3fb950;
+        opacity:.85;
+        margin-left:4px;
+        white-space:nowrap;
+        vertical-align:middle;
+    }
+    .poo-offtop__check{
+        width:10px;height:10px;
+        display:inline-block;
+        vertical-align:-1px;
+        filter:invert(62%) sepia(68%) saturate(500%) hue-rotate(85deg) brightness(95%) contrast(90%);
+    }
+    .poo-offtop.is-seen .poo-offtop__status,
+    .poo-offtop__toggle:checked ~ .poo-offtop__summary .poo-offtop__status{
+        display:inline-flex;
+    }
+
+    .poo-offtop__hint{
+        flex:0 0 auto;
+        font-size:10px;
+        letter-spacing:.3px;
+        color:#6e7681;
+        opacity:.6;
+    }
+    .poo-offtop__hint-close{display:none}
+    .poo-offtop__toggle:checked + .poo-offtop__summary .poo-offtop__hint-open{display:none}
+    .poo-offtop__toggle:checked + .poo-offtop__summary .poo-offtop__hint-close{display:inline}
+
+    .poo-offtop__chevron{flex:0 0 16px;color:var(--poo-accent);transition:transform .3s ease-out}
+    .poo-offtop__toggle:checked + .poo-offtop__summary .poo-offtop__chevron{transform:rotate(180deg)}
+
+    .poo-offtop__inner{padding:0 var(--poo-pad);transition:padding .35s ease-out}
+    .poo-offtop__toggle:checked ~ .poo-offtop__content .poo-offtop__inner{padding:10px var(--poo-pad)}
+    .poo-offtop__inner > :first-child{margin-top:0}
+    .poo-offtop__inner > :last-child{margin-bottom:0}
+
+    @media (prefers-reduced-motion:reduce){
+        .poo-offtop__icon,
+        .poo-offtop__chevron,
+        .poo-offtop__content,
+        .poo-offtop__content::before,
+        .poo-offtop__inner,
+        .poo-offtop__notice{transition:none}
+    }
+    </style>
+
+    <script>
+    (function(){
+        var root = document.currentScript.closest('.poo-offtop');
+        if(!root) return;
+        var cb = root.querySelector('.poo-offtop__toggle');
+        if(!cb) return;
+        var inner = root.querySelector('.poo-offtop__inner');
+        var key = 'poo_offtop_seen_' + (inner ? inner.textContent.trim().slice(0, 60) : '');
+        try{
+            if(localStorage.getItem(key) === '1') root.classList.add('is-seen');
+        }catch(e){}
+        cb.addEventListener('change', function(){
+            if(cb.checked){
+                root.classList.add('is-seen');
+                try{ localStorage.setItem(key, '1'); }catch(e){}
+            }
+        });
+    })();
+    </script>
+</div>
